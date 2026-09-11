@@ -1,6 +1,8 @@
 # K.I.S.S. (Keep It Simple, Stupid)
 
-![k.i.s.s. window](Docs/Screenshots/kiss-main.png)
+<p align="center">
+  <img src="Docs/Screenshots/kiss-main.png" alt="K.I.S.S. window">
+</p>
 
 GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/grip-enhanced-macro-sequencer) (GRIP - Enhanced Macro Sequencer),that walks you through the three things you need to do to get it working: pick or import a sequence, bind a key to it, then test it out.
 
