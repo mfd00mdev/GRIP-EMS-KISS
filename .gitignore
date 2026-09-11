@@ -1,0 +1,11 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+*.swp
+
+# WoW SavedVariables are generated at runtime in WTF/, never inside the
+# addon folder itself, so nothing addon-specific needs excluding here --
+# this repo only ever contains the addon's own source and media.

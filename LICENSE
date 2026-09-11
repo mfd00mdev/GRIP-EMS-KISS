@@ -1,0 +1,24 @@
+GRIP-EMS K.I.S.S. - Keep It Simple, Stupid
+Copyright (c) 2026 MFDOOM
+
+All Rights Reserved.
+
+This software and associated documentation files (the "Software") may not
+be copied, modified, merged, published, distributed, sublicensed, and/or
+sold without the express written permission of the copyright holder.
+
+The Software is a companion addon for GRIP-EMS (Enhanced Macro Sequencer).
+It requires GRIP-EMS to function and does not replace or redistribute
+GRIP-EMS itself. Use of GRIP-EMS is subject to its own license and terms.
+
+The Software is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+author be liable for any claim, damages or other liability, whether in an
+action of contract, tort or otherwise, arising from, out of or in connection
+with the Software or the use or other dealings in the Software.
+
+The Software is distributed via GitHub, CurseForge, and any other channel
+explicitly authorized by the copyright holder, for end-user installation
+only. Redistribution of the source code or compiled addon package outside
+these official channels is prohibited.
