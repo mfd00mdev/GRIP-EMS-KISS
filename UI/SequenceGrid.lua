@@ -41,6 +41,15 @@ StaticPopupDialogs["KISS_CONFIRM_DELETE_SEQ"] = {
     button1 = "Delete",
     button2 = "Cancel",
     OnAccept = function(self, data)
+        -- Confirmed in testing: GRIP-EMS's own /gems parser splits the name
+        -- on the first space with no quote support. For a delete that's
+        -- worse than a silent no-op -- a truncated name could match a
+        -- *different* real sequence and delete the wrong one. Refuse and
+        -- send the user to GRIP-EMS's own list instead.
+        if KISS.HasSlashUnsafeName(data.name) then
+            print("|cFFFF6644KISS:|r '" .. data.name .. "' has a space in its name, so GRIP-EMS can't delete it safely through /gems delete. Delete it from GRIP-EMS's own sequence list instead.")
+            return
+        end
         -- Just issue the delete; the SEQUENCE_DELETED event listener (Core/Init.lua)
         -- handles clearing the selection and refreshing whichever grid is visible.
         SlashCmdList["GRIPEMS"]("delete " .. data.name)

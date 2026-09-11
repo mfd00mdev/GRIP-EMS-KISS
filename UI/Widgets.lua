@@ -21,7 +21,7 @@ KISS.RESET = "|r"
 -------------------------------------------------------------------------------
 -- UI constants
 -------------------------------------------------------------------------------
-KISS.VERSION = "0.1.0"  -- keep in sync with GRIP-EMS-KISS.toc's ## Version:
+KISS.VERSION = "0.1.1"  -- keep in sync with GRIP-EMS-KISS.toc's ## Version:
 
 KISS.WIN_W, KISS.WIN_H = 760, 580
 KISS.NAV_W             = 160
@@ -116,4 +116,19 @@ end
 function KISS.Track(w)
     contentWidgets[#contentWidgets + 1] = w
     return w
+end
+
+-------------------------------------------------------------------------------
+-- Slash-command name safety check
+-------------------------------------------------------------------------------
+-- CONFIRMED (in-game, 2026): GRIP-EMS's own /gems bind|unbind|delete parser
+-- splits its argument string on the first whitespace with no quote support --
+-- wrapping a name in quotes doesn't help, the leading quote just becomes part
+-- of the truncated token. Any sequence name containing a space cannot be
+-- bound, unbound, or deleted through the /gems slash interface, manually or
+-- through this wizard. This only checks for the confirmed failure case
+-- (whitespace); other punctuation in "DummyAnalyzer > Best (Solo)" did not
+-- reproduce a separate failure in testing, so it isn't flagged here.
+function KISS.HasSlashUnsafeName(name)
+    return name ~= nil and name:find("%s") ~= nil
 end

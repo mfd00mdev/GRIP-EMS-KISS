@@ -224,8 +224,23 @@ function KISS.RenderStep2(ca)
     seqNote:SetTextColor(0.85, 0.85, 0.85, 1)
     seqNote:SetJustifyH("LEFT")
 
+    -- Confirmed in testing: a space in the sequence name breaks GRIP-EMS's
+    -- own /gems bind parser, quoted or not. If the selected sequence has
+    -- one, warn here instead of letting the user hit the same wall Step 2's
+    -- bind button can't get around either.
+    local anchorAbove = seqNote
+    if KISS.selectedSeq and KISS.HasSlashUnsafeName(KISS.selectedSeq) then
+        local nameWarning = KISS.Track(ca:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall"))
+        nameWarning:SetPoint("TOPLEFT", seqNote, "BOTTOMLEFT", 0, -8)
+        nameWarning:SetWidth(KISS.CONTENT_W)
+        nameWarning:SetText(KISS.RED .. "This sequence's name has a space in it, which GRIP-EMS's bind command can't handle." .. KISS.RESET .. " Give it a one-word name, or bind it manually from GRIP-EMS's Keybind tab instead.")
+        nameWarning:SetTextColor(0.90, 0.30, 0.30, 1)
+        nameWarning:SetJustifyH("LEFT")
+        anchorAbove = nameWarning
+    end
+
     local question = KISS.Track(ca:CreateFontString(nil, "OVERLAY", "GameFontHighlight"))
-    question:SetPoint("TOPLEFT", seqNote, "BOTTOMLEFT", 0, -18)
+    question:SetPoint("TOPLEFT", anchorAbove, "BOTTOMLEFT", 0, -18)
     question:SetWidth(KISS.CONTENT_W)
     question:SetText("What key do you want to press to fire your sequence?")
     question:SetTextColor(0.85, 0.85, 0.85, 1)
@@ -289,20 +304,38 @@ function KISS.RenderStep2(ca)
         if IsShiftKeyDown() then prefix = prefix .. "SHIFT-" end
         if IsControlKeyDown() then prefix = prefix .. "CTRL-" end
         if IsAltKeyDown() then prefix = prefix .. "ALT-" end
-        local fullKey = prefix .. key
 
-        KISS.keybind = fullKey
-        KISS.SaveState()
-        keybindBtn._label:SetText("[ " .. fullKey .. " ]")
-        currentLabel:SetText("Current binding: " .. KISS.GREEN .. fullKey .. KISS.RESET)
+        -- OnKeyDown hands us the raw internal binding token (e.g. "PERIOD"),
+        -- not the character it displays as. Letters/numbers/F-keys happen to
+        -- match their display text, but punctuation doesn't, and EMS's own
+        -- /gems bind parses the same human-readable text its keybind UI would
+        -- show. GetBindingText converts the raw token to that display form
+        -- (PERIOD -> ".") before we hand it off.
+        local displayKey = GetBindingText(key, "KEY_") or key
+        local fullKey = prefix .. displayKey
         StopListening()
 
-        -- Apply via EMS: /gems bind <seqName> <key>
-        if KISS.selectedSeq then
+        -- Apply via EMS: /gems bind <seqName> <key>. State is only committed
+        -- (KISS.keybind, SavedVariables, button label) in the success branch --
+        -- showing "[ F10 ]" as bound when GRIP-EMS never actually accepted it
+        -- would just be a second version of the false-success bug this guard
+        -- exists to close.
+        if not KISS.selectedSeq then
+            print("|cFFFF6644KISS:|r No sequence selected — go back to Step 1 first.")
+        elseif KISS.HasSlashUnsafeName(KISS.selectedSeq) then
+            -- Confirmed in testing: GRIP-EMS's own /gems bind parser splits on
+            -- the first space with no quote support, so sending this would
+            -- have it look for a truncated, wrong sequence name and fail
+            -- silently as far as this wizard is concerned. Don't send it, and
+            -- don't claim a bind that didn't happen.
+            print("|cFFFF6644KISS:|r '" .. KISS.selectedSeq .. "' has a space in its name, so GRIP-EMS can't bind it through /gems bind. Rename it without spaces, or bind it from GRIP-EMS's own Keybind tab.")
+        else
+            KISS.keybind = fullKey
+            KISS.SaveState()
+            keybindBtn._label:SetText("[ " .. fullKey .. " ]")
+            currentLabel:SetText("Current binding: " .. KISS.GREEN .. fullKey .. KISS.RESET)
             SlashCmdList["GRIPEMS"]("bind " .. KISS.selectedSeq .. " " .. fullKey)
             print("|cFF82E882KISS:|r Bound [" .. fullKey .. "] to sequence: " .. KISS.selectedSeq)
-        else
-            print("|cFFFF6644KISS:|r No sequence selected — go back to Step 1 first.")
         end
     end
 
@@ -335,7 +368,7 @@ function KISS.RenderStep2(ca)
     clearBtn:SetPoint("TOP", keybindBtn, "BOTTOM", 0, -10)
     clearBtn._label:SetTextColor(0.90, 0.30, 0.30, 1)
     clearBtn:SetScript("OnClick", function()
-        if KISS.selectedSeq and KISS.keybind then
+        if KISS.selectedSeq and KISS.keybind and not KISS.HasSlashUnsafeName(KISS.selectedSeq) then
             SlashCmdList["GRIPEMS"]("unbind " .. KISS.selectedSeq)
         end
         KISS.keybind = nil

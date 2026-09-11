@@ -1,35 +1,18 @@
 # Changelog
 
-## v0.1.0 (First release)
+All notable changes to K.I.S.S. (Keep It Simple, Stupid) will be listed here.
 
-This is the first working version of K.I.S.S. It's a little wizard that
-walks new GRIP-EMS users through getting their rotation up and running.
-You pick or import a sequence, bind a key to it, then go test it on a
-dummy.
+## [0.1.1]
 
-**What's in it:**
+### Fixed
+- Fixed . and other punctuation keys not binding correctly.
+- Wizard no longer claims a bind worked when it didn't.
+- Sequence names with spaces (e.g. DummyAnalyzer > Best (Solo)) can't be bound, unbound, or deleted here anymore — GRIP-EMS's own commands break on spaces. Reported upstream. Use GRIP-EMS's Keybind tab for those instead.
 
-- A full guided setup. It walks you from the Home screen, to picking your
-  sequence, to binding a key, to testing it out.
-- Step 1 lets you pick from sequences you've already imported. If you
-  don't have one yet, it sends you to GRIP-EMS's own import window, with
-  links to LazyGrip and HouseOfMacros in case you need a rotation to
-  begin with.
-- One click to capture a keybind. It gets applied straight through
-  GRIP-EMS automatically.
-- You can delete old test sequences right from the picker, with a
-  confirmation step so you don't delete something by accident.
-- It opens automatically the first time you log in with it installed.
-  After that, typing `/gems kiss` brings it back anytime.
+### Changed
+- Bumped the `.toc` Interface version to match the current client (12.1.0).
 
-**Annoying bugs that took longer than they should have:**
+## [0.1.0]
 
-- The whole addon was silently failing to load. It was trying to listen
-  for an event that doesn't actually exist in the game.
-- Some sequence boxes and text were rendering outside the window instead
-  of wrapping properly inside it.
-- The sequence list used to only show 4 entries at a time. It scrolls
-  properly now, so you can see all of them.
-- The delete confirmation popup would show up, but it never closed
-  itself afterward.
-
+### Added
+- Initial release of the guided setup wizard for GRIP-EMS.
