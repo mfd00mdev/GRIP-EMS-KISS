@@ -1,0 +1,16 @@
+## Interface: 120007
+## Title: |cFF00CC66GRIP|r - K.I.S.S. - Keep It Simple, Stupid
+## Author: You
+## Version: 0.1.0
+## Notes: A guided onboarding wizard for GRIP-EMS new users.
+## IconTexture: Interface\Icons\Ability_Rogue_MasterOfSubtlety
+## Dependencies: GRIP-EMS
+## Group: GRIP-EMS
+## SavedVariables: KISS_DB
+
+UI/Widgets.lua
+UI/URLPopup.lua
+UI/SequenceGrid.lua
+UI/Pages.lua
+UI/Wizard.lua
+Core/Init.lua
