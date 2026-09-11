@@ -14,7 +14,6 @@ GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/g
 - Lets you pick from sequences you already have, or loads GRIP-EMS's import window if you need to load one. Includes links to external sites for finding rotations.
 - Lets you set a keybind with one click, applied through GRIP-EMS automatically.
 - A final page with tips if something isn't working, plus a link to the [GRIP-EMS Discord](https://discord.gg/XQXH3nt2X8) 
-- Opens by itself the first time you install it. After that, type `/gems kiss` anytime to bring it back.
 
 ## Requirements
 
