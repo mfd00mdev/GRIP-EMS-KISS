@@ -23,6 +23,7 @@ end
 -- Bottom navigation arrows
 -------------------------------------------------------------------------------
 local bottomPrev, bottomNext
+local bottomNextIcon
 local bottomVersionLabel, bottomCreditLabel
 
 local PAGE_ORDER = { "home", "step1", "step2", "step3" }
@@ -61,10 +62,12 @@ function KISS.UpdateArrows()
             bottomNext._label:SetText("Finished")
             bottomNext:SetEnabled(true)
             bottomNext:SetAlpha(1)
+            if bottomNextIcon then bottomNextIcon:Hide() end
         else
-            bottomNext._label:SetText("Next  ▶")
+            bottomNext._label:SetText("Next")
             bottomNext:SetEnabled(canAdvance)
             bottomNext:SetAlpha(canAdvance and 1 or 0.3)
+            if bottomNextIcon then bottomNextIcon:Show() end
         end
     end
 end
@@ -247,15 +250,24 @@ local function BuildWizard()
     topLine:SetPoint("TOPRIGHT", bottomBar, "TOPRIGHT", 0, 0)
     topLine:SetHeight(1)
 
-    -- Prev / Next arrows
-    bottomPrev = KISS.MakeButton(bottomBar, "◀  Previous", 110, 24, KISS.COL_BTN)
+    -- Prev / Next arrows.
+    -- NOTE: these used to be "◀"/"▶" characters baked into the button text.
+    -- That glyph doesn't exist in every font a font-replacement addon might
+    -- substitute in, and shows up as a tofu/ASCII placeholder when it's
+    -- missing (confirmed via a user bug report). Using real textures avoids
+    -- font coverage entirely -- these are stock Blizzard icons, not text.
+    bottomPrev = KISS.MakeButton(bottomBar, "Previous", 110, 24, KISS.COL_BTN)
     bottomPrev:SetPoint("LEFT", bottomBar, "LEFT", 12, 0)
     bottomPrev:SetScript("OnClick", function()
         local idx = GetPageIndex(KISS.currentPage)
         if idx > 1 then KISS.ShowPage(PAGE_ORDER[idx - 1]) end
     end)
+    local prevIcon = bottomPrev:CreateTexture(nil, "OVERLAY")
+    prevIcon:SetTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up")
+    prevIcon:SetSize(14, 14)
+    prevIcon:SetPoint("LEFT", bottomPrev, "LEFT", 6, 0)
 
-    bottomNext = KISS.MakeButton(bottomBar, "Next  ▶", 110, 24, KISS.COL_BTN)
+    bottomNext = KISS.MakeButton(bottomBar, "Next", 110, 24, KISS.COL_BTN)
     bottomNext:SetPoint("RIGHT", bottomBar, "RIGHT", -12, 0)
     bottomNext._label:SetTextColor(1, 0.82, 0, 1)
     bottomNext:SetScript("OnClick", function()
@@ -266,6 +278,10 @@ local function BuildWizard()
             KISS.ShowPage(PAGE_ORDER[idx + 1])
         end
     end)
+    bottomNextIcon = bottomNext:CreateTexture(nil, "OVERLAY")
+    bottomNextIcon:SetTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up")
+    bottomNextIcon:SetSize(14, 14)
+    bottomNextIcon:SetPoint("RIGHT", bottomNext, "RIGHT", -6, 0)
 
     local stepLabel = bottomBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     stepLabel:SetPoint("CENTER", bottomBar, "CENTER", 0, 0)

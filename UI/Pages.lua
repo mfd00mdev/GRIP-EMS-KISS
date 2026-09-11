@@ -232,8 +232,8 @@ function KISS.RenderStep2(ca)
     if KISS.selectedSeq and KISS.HasSlashUnsafeName(KISS.selectedSeq) then
         local nameWarning = KISS.Track(ca:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall"))
         nameWarning:SetPoint("TOPLEFT", seqNote, "BOTTOMLEFT", 0, -8)
-        nameWarning:SetWidth(KISS.CONTENT_W)
-        nameWarning:SetText(KISS.RED .. "This sequence's name has a space in it, which GRIP-EMS's bind command can't handle." .. KISS.RESET .. " Give it a one-word name, or bind it manually from GRIP-EMS's Keybind tab instead.")
+        nameWarning:SetPoint("TOPRIGHT", ca, "TOPRIGHT", 0, 0)   -- anchor to the live frame, not a copied width constant
+        nameWarning:SetText("This sequence's name has a space in it, which GRIP-EMS's bind command can't handle. Give it a one-word name, or bind it manually from GRIP-EMS's Keybind tab instead.")
         nameWarning:SetTextColor(0.90, 0.30, 0.30, 1)
         nameWarning:SetJustifyH("LEFT")
         anchorAbove = nameWarning

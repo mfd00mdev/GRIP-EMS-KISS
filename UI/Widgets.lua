@@ -21,7 +21,7 @@ KISS.RESET = "|r"
 -------------------------------------------------------------------------------
 -- UI constants
 -------------------------------------------------------------------------------
-KISS.VERSION = "0.1.1"  -- keep in sync with GRIP-EMS-KISS.toc's ## Version:
+KISS.VERSION = "0.1.2"  -- keep in sync with GRIP-EMS-KISS.toc's ## Version:
 
 KISS.WIN_W, KISS.WIN_H = 760, 580
 KISS.NAV_W             = 160

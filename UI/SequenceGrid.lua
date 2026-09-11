@@ -60,6 +60,28 @@ StaticPopupDialogs["KISS_CONFIRM_DELETE_SEQ"] = {
     preferredIndex = 3,
 }
 
+-------------------------------------------------------------------------------
+-- Confirm selecting a sequence whose name GRIP-EMS's /gems bind can't parse.
+-- Confirmed in testing: a space in the name breaks bind/unbind/delete, quoted
+-- or not. Warn before the selection commits rather than letting the user
+-- find out on Step 2 after they've already moved on.
+-------------------------------------------------------------------------------
+StaticPopupDialogs["KISS_CONFIRM_UNSAFE_NAME_SEQ"] = {
+    text = "\"%s\" has a space in its name. GRIP-EMS can't bind sequences like this through this wizard. Rename it (no spaces) in GRIP-EMS's editor first, or continue and bind it manually from GRIP-EMS's own Keybind tab.",
+    button1 = "Select Anyway",
+    button2 = "Cancel",
+    OnAccept = function(self, data)
+        KISS.selectedSeq = data.name
+        KISS.SaveState()
+        if data.hostFrame then KISS.PopulateSequenceGrid(data.hostFrame) end
+        KISS.UpdateArrows()
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+
 function KISS.PopulateSequenceGrid(hostFrame)
     -- Clear any boxes this specific host previously built
     if hostFrame._boxes then
@@ -156,6 +178,10 @@ function KISS.PopulateSequenceGrid(hostFrame)
         descFS:SetJustifyH("LEFT")
 
         box:SetScript("OnClick", function()
+            if KISS.HasSlashUnsafeName(s.name) then
+                StaticPopup_Show("KISS_CONFIRM_UNSAFE_NAME_SEQ", s.name, nil, { name = s.name, hostFrame = hostFrame })
+                return
+            end
             KISS.selectedSeq = s.name
             KISS.SaveState()
             KISS.PopulateSequenceGrid(hostFrame)  -- re-render to update selection highlight

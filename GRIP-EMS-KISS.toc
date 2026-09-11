@@ -1,7 +1,7 @@
 ## Interface: 120100
 ## Title: |cFF00CC66GRIP|r - K.I.S.S. - Keep It Simple, Stupid
 ## Author: You
-## Version: 0.1.1
+## Version: 0.1.2
 ## Notes: A guided onboarding wizard for GRIP-EMS new users.
 ## IconTexture: Interface\Icons\Ability_Rogue_MasterOfSubtlety
 ## Dependencies: GRIP-EMS
