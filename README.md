@@ -30,29 +30,6 @@ GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/g
 - You can reopen it anytime by typing `/gems kiss`
 - Follow the addons instructions.
 
-## Project layout
-
-```
-GRIP-EMS-KISS/
-  GRIP-EMS-KISS.toc
-  Core/
-    Init.lua         (handles startup, registering the plugin, the slash command, and event listeners)
-  UI/
-    Widgets.lua       (shared colors and basic building blocks used everywhere)
-    URLPopup.lua       (a popup for copying links, since addons can't open a browser directly)
-    SequenceGrid.lua   (the sequence picker grid, plus the delete confirmation popup)
-    Pages.lua          (the actual Home, Step 1, Step 2, and Step 3 screens)
-    Wizard.lua         (the window itself: the frame, side menu, bottom bar, and page switching)
-  Media/
-    opai.blp           (the mascot image)
-```
-
-Every file shares one private table (using the standard `local ADDON_NAME, KISS = ...` pattern), so things defined in one file can be used in the others without creating any global variables.
-
-## Built against
-
-GRIP-EMS Plugin API v2 or newer. It uses `RegisterPlugin`, `RegisterSlashCommand`, and the public event bus. See the [GRIP-EMS Plugin API docs](https://JesperLive.github.io/GRIP-EMS-PluginAPI) if you want the full details.
-
 ## Credits
 
 Made by MFDOOM with love.
