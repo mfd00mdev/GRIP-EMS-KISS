@@ -19,7 +19,7 @@ GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/g
 ## Requirements
 
 - World of Warcraft: Retail 12.1+
-- [GRIP-EMS](https://www.curseforge.com/wow/addons/grip-enhanced-macro-sequencer) installed and turned on. K.I.S.S. is just a companion plugin and won't load without it
+- [GRIP-EMS](https://www.curseforge.com/wow/addons/grip-enhanced-macro-sequencer) installed and enabled. K.I.S.S. is just a companion plugin and won't load without it
 
 ## How to install it
 
@@ -28,11 +28,10 @@ GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/g
 3. Start WoW and enable **GRIP - K.I.S.S. - Keep It Simple, Stupid** in your AddOns list
    ![K.I.S.S. in Addon List](Docs/Screenshots/kiss-list.png)
 
-## How to use it
+## Options and commands
 
 - The first time you log in, the wizard opens on its own
 - You can reopen it anytime by typing `/gems kiss`
-- Follow the addons instructions.
 
 ## Credits
 
