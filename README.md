@@ -23,9 +23,9 @@ GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/g
 
 ## How to install it
 
-1. Download or clone this repository
-2. Copy the `GRIP-EMS-KISS` folder into your `World of Warcraft/_retail_/Interface/AddOns/` folder
-3. Start WoW and enable **GRIP - K.I.S.S. - Keep It Simple, Stupid** in your AddOns list
+- Download or clone this repository
+- Copy the `GRIP-EMS-KISS` folder into your `World of Warcraft/_retail_/Interface/AddOns/` folder
+- Start WoW and enable **GRIP - K.I.S.S. - Keep It Simple, Stupid** in your AddOns list
    ![K.I.S.S. in Addon List](Docs/Screenshots/kiss-list.png)
 
 ## Options and commands
