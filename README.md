@@ -31,7 +31,7 @@ GRIP-EMS-KISS is a plugin for [GRIP-EMS](https://www.curseforge.com/wow/addons/g
 
 ## Options and commands
 
-- The first time you log in, the wizard opens on its own
+- The first time you log in, the guided wizard opens on its own.
 - You can reopen it anytime by typing `/gems kiss`
 
 ## Credits
