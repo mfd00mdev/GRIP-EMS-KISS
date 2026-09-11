@@ -11,7 +11,6 @@ All notable changes to K.I.S.S. (Keep It Simple, Stupid) will be listed here.
 
 ### Fixed
 - Fixed the Step 2 warning text bleeding past the edge of the window on some clients.
-- Fixed the Previous/Next arrows showing as a placeholder character on clients using a custom UI font.
 
 ## [0.1.1]
 
